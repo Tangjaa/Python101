@@ -1,2 +1,2 @@
 "# Python101" 
-\nMy First Learning for Python
+My First Learning for Python
