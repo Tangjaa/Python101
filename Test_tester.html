@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automation Tester Mock Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f5f7fa; }
+    h1 { color: #333; }
+    .question { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .timer { font-size: 18px; font-weight: bold; color: #c0392b; margin-bottom: 15px; }
+    button { padding: 10px 20px; background-color: #2ecc71; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background-color: #27ae60; }
+    .result { font-weight: bold; font-size: 18px; color: #2980b9; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Automation Tester - Mock Test (Web-based)</h1>
+  <div class="timer" id="timer">Time left: 120:00</div>
+
+  <form id="quizForm">
+    <div class="question">
+      <p><strong>1. What does the following Robot Framework keyword do?</strong><br>
+      <code>Wait Until Page Contains Element id:submit-button</code></p>
+      <label><input type="radio" name="q1" value="a" /> A. Wait for page to load</label><br />
+      <label><input type="radio" name="q1" value="b" /> B. Wait until element with id is visible</label><br />
+      <label><input type="radio" name="q1" value="c" /> C. Click submit button</label><br />
+      <label><input type="radio" name="q1" value="d" /> D. Check if element is clicked</label>
+    </div>
+
+    <div class="question">
+      <p><strong>2. Which SQL command removes duplicate entries from a SELECT query?</strong></p>
+      <label><input type="radio" name="q2" value="a" /> A. SELECT UNIQUE</label><br />
+      <label><input type="radio" name="q2" value="b" /> B. SELECT DISTINCT</label><br />
+      <label><input type="radio" name="q2" value="c" /> C. SELECT ONCE</label><br />
+      <label><input type="radio" name="q2" value="d" /> D. SELECT NO_DUP</label>
+    </div>
+
+    <div class="question">
+      <p><strong>3. What comes next in the pattern: ◀ ▲ ▶ ◼ ◀ ▲ ▶ ?</strong></p>
+      <label><input type="radio" name="q3" value="a" /> A. ◼</label><br />
+      <label><input type="radio" name="q3" value="b" /> B. ◀</label><br />
+      <label><input type="radio" name="q3" value="c" /> C. ▶</label><br />
+      <label><input type="radio" name="q3" value="d" /> D. ▲</label>
+    </div>
+
+    <div class="question">
+      <p><strong>4. If 5 QA engineers can complete testing in 10 hours, how many hours will it take 10 QA engineers to complete the same work?</strong></p>
+      <label><input type="radio" name="q4" value="a" /> A. 20</label><br />
+      <label><input type="radio" name="q4" value="b" /> B. 5</label><br />
+      <label><input type="radio" name="q4" value="c" /> C. 10</label><br />
+      <label><input type="radio" name="q4" value="d" /> D. 7</label>
+    </div>
+
+    <div class="question">
+      <p><strong>5. Which sentence is grammatically correct?</strong></p>
+      <label><input type="radio" name="q5" value="a" /> A. He go to the office every day.</label><br />
+      <label><input type="radio" name="q5" value="b" /> B. He going to office now.</label><br />
+      <label><input type="radio" name="q5" value="c" /> C. He goes to the office every day.</label><br />
+      <label><input type="radio" name="q5" value="d" /> D. He to the office goes.</label>
+    </div>
+
+    <button type="submit">Submit Answers</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    let timeLeft = 120 * 60; // 2 hours
+    const timerElement = document.getElementById("timer");
+
+    function updateTimer() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerElement.textContent = `Time left: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+      if (timeLeft > 0) {
+        timeLeft--;
+      } else {
+        alert("Time's up!");
+        document.getElementById("quizForm").submit();
+      }
+    }
+
+    setInterval(updateTimer, 1000);
+
+    const answers = {
+      q1: 'b',
+      q2: 'b',
+      q3: 'a',
+      q4: 'b',
+      q5: 'c'
+    };
+
+    document.getElementById("quizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let score = 0;
+      for (let key in answers) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (selected && selected.value === answers[key]) {
+          score++;
+        }
+      }
+      document.getElementById("result").textContent = `Your score is ${score} / ${Object.keys(answers).length}`;
+    });
+  </script>
+</body>
+</html>
